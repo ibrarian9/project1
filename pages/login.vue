@@ -6,6 +6,10 @@ import { useAuthStore } from "~/store/authLogin";
 const { authenticateUser } = useAuthStore();
 const { authenticated } = storeToRefs(useAuthStore())
 
+useSeoMeta({
+  title: "Login Admin"
+})
+
 // Get Data From Form
 const user = ref({
   username : '',
@@ -32,6 +36,7 @@ const login = async () => {
         <p>Masuk untuk terhubung ke Database</p>
       </div>
       <form @submit.prevent="">
+        <component #error="{ error }">{{error}}</component>
         <div class="form-group">
           <input
               v-model="user.username"

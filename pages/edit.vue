@@ -5,6 +5,9 @@
     middleware: "auth"
   })
 
+  useSeoMeta({
+    title: "Edit Data Hp"
+  })
   // Define id
   const route = useRoute()
 
@@ -13,7 +16,7 @@
   const url = config.public.baseApi
 
   // Call api edit data by id
-  const { data: post } : any = await useFetch(`${url}/hape/edit/${route.params.id}`)
+  const { data: post } : any = await useFetch(`${url}/hape/tampil/${route.params.id}`)
 
   // Form Data
   const nama = ref(post.value.nama);
@@ -31,7 +34,7 @@
     formData.append('rilis', rilis.value);
     formData.append('harga', harga.value);
 
-    await $fetch(`${url}/hape/edit/${route.params.id}`,{
+    await $fetch(`${url}/hape/tampil/${route.params.id}`,{
       method: "PUT",
       contentType: false,
       body: formData
@@ -58,17 +61,6 @@
               id="nama"
               name="nama"
               v-model="nama"
-          />
-        </div>
-        <div class="form-group">
-          <label for="foto">Foto Handphone</label>
-          <input
-              type="file"
-              id="foto"
-              name="foto"
-              accept="image/*"
-              class="img"
-              required
           />
         </div>
         <div class="form-group">
@@ -196,15 +188,6 @@ a {
 label {
   font-weight: 600;
   font-size: small;
-}
-
-.img {
-  font-family: "Public Sans", sans-serif;
-  margin: 0 15px 15px 15px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  border: none;
 }
 
 input,

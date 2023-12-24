@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('auth', {
         async authenticateUser({ username, password }: loginForm) {
 
             // useFetch from nuxt 3
-            const { data, pending } = await useFetch('/api/login', {
+            const { data, pending, error } = await useFetch('/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/json',
@@ -25,10 +25,17 @@ export const useAuthStore = defineStore('auth', {
                     password,
                 }),
             });
+            // @ts-ignore
             this.loading = pending;
 
+            if (error.value){
+                throw createError({statusCode: 400, statusMessage: "Username or Password Wrong..."})
+            }
+
+            // @ts-ignore
             if (data.value.data){
                 const token = useCookie('token'); // useCookie new hook in nuxt 3
+                // @ts-ignore
                 token.value = data?.value?.data.token; // set token to cookie
                 this.authenticated = true; // set authenticated  state value to true
             }

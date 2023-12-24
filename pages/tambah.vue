@@ -6,6 +6,10 @@ definePageMeta({
   middleware: "auth"
 })
 
+useSeoMeta({
+  title: "Tambah Data Hp"
+})
+
 const router = useRouter();
 
 const config = useRuntimeConfig()
@@ -32,7 +36,7 @@ const submit = async () => {
   formData.append('rilis', rilis.value);
   formData.append('harga', harga.value);
 
-  await $fetch(`${url}/hape/add`,{
+  await $fetch(`${url}/hape/tambah`,{
       method: "POST",
       contentType: false,
       body: formData

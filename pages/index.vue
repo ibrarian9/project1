@@ -6,10 +6,14 @@ definePageMeta({
   middleware: "auth"
 })
 
+useSeoMeta({
+  title: "Dashboard"
+})
+
 const config = useRuntimeConfig()
 const url = config.public.baseApi
 
-const { data: post } : any = await useAsyncData('post', () => $fetch(`${url}/hape/all`))
+const { data: post } : any = await useAsyncData('post', () => $fetch(`${url}/hape/tampil`))
 
 const deleteData = async (id: number) => {
   await $fetch(`${url}/hape/hapus/${id}`, {
@@ -28,7 +32,6 @@ const deleteData = async (id: number) => {
   <h3>Daftar Hp</h3>
   <div class="top-container">
     <div class="search-bar">
-      <input type="text" placeholder="Cari Hp" />
     </div>
     <NuxtLink class="add-new-button" to="/tambah"> Tambah Hp </NuxtLink>
   </div>
@@ -82,10 +85,6 @@ h3 {
 }
 
 .search-bar {
-  background-color: #fff;
-  height: 25px;
-  padding: 5px;
-  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
